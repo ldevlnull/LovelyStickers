@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Built-By: devnull
+Build-Jdk: 9-internal
+Created-By: Maven Integration for Eclipse
+

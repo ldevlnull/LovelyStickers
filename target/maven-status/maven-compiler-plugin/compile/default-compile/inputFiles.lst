@@ -1,0 +1,12 @@
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/repository/UserRepository.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/entity/User.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/entity/Role.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/controller/UserController.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/serviceImp/UserServiceImp.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/controller/HomeController.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/serviceImp/ProductServiceImp.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/repository/ProductRepository.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/entity/Product.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/service/UserService.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/controller/ProductController.java
+/home/devnull/workspace/lovelystickers/src/main/java/com/lovelystickersua/service/ProductService.java
