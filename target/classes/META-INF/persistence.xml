@@ -6,9 +6,9 @@
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url"
-				value="jdbc:mysql://uashared06.twinservers.net:3306/lovelystickersua" />
-			<property name="hibernate.connection.username" value="devnull" />
-			<property name="hibernate.connection.password" value="33$~GCD.K}RZ" />
+				value="jdbc:mysql://localhost:3306/lovelyst_lovelystickersua" /> <!-- jdbc:mysql://uashared06.twinservers.net:3306/lovelyst_lovelystickersua -->
+			<property name="hibernate.connection.username" value="root" /> <!-- lovelyst -->
+			<property name="hibernate.connection.password" value="123456" />  <!-- ru32P0qf5Y -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />

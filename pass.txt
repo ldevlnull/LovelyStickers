@@ -1,0 +1,6 @@
+<property name="hibernate.connection.url"
+				value="jdbc:mysql://uashared06.twinservers.net:2083/lovelyst_lovelystickersua" />
+			<property name="hibernate.connection.username" value="lovelyst" />
+			<property name="hibernate.connection.password" value="ru32P0qf5Y" />
+
+33$~GCD.K}RZ

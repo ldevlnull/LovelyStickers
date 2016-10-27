@@ -7,7 +7,8 @@ import com.lovelystickersua.entity.User;
 public interface UserService {
 
 	void save(User user);
-	User findOne(long id);
+	User findOne(long ID);
 	List<User> findAll();
-	void delete(long id);
+	void delete(long ID);
+	User userFetch(long ID);
 }

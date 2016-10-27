@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,10 +28,15 @@
 			</table>
 		</form>
 	</sec:authorize>
-
-	<sec:authorize access="isAuthenticated()">
 		<form>
-			<button formaction="product">Add product</button>
+			<button formaction="product">Products</button>
+		</form>
+	<sec:authorize access="isAuthenticated()">
+	<c:forEach var="product" items="${products}">
+		${product.name} ${product.price}
+	</c:forEach>
+		<form>
+			<button formaction="profile">Profile</button>
 		</form>
 		<sf:form action="logout" method="post">
 			<button>Log out</button>

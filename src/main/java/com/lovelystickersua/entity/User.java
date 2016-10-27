@@ -23,16 +23,33 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long ID;
-	@Column(nullable = false)
+	@Column(nullable = false, unique=true)
 	private String username;
 	@Column(nullable = false)
 	private String password;
-	@Column(nullable = false)
+	@Column(nullable = false, unique=true)
 	private String email;
+	private String pathImage;
+
+	public String getPathImage() {
+		return pathImage;
+	}
+
+	public void setPathImage(String pathImage) {
+		this.pathImage = pathImage;
+	}
 
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
-	List<Product> products;
+	private List<Product> products;
 	
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
 	@Enumerated
 	private Role role;
 
@@ -67,7 +84,7 @@ public class User implements UserDetails {
 	}
 
 	public String getUsername() {
-		return username;
+		return ""+ID;
 	}
 
 	public Role getRole() {
@@ -114,4 +131,7 @@ public class User implements UserDetails {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + "]";
 	}
 
+	public String getName(){
+		return username;
+	}
 }

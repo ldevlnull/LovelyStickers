@@ -21,7 +21,7 @@ public class ProductController {
 
 	@Autowired
 	private ProductService pService;
-
+	
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String commodity(Model model) {
 		List<Product> productsDB = pService.findAll();
@@ -30,7 +30,6 @@ public class ProductController {
 		model.addAttribute("productMODEL", new Product());
 		return PAGE_PRODUCT;
 	}
-
 	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
 	public String saveCommodity(@ModelAttribute Product product) {
 		pService.save(product);
@@ -41,5 +40,4 @@ public class ProductController {
 		pService.delete(id);
 		return BACK;
 	}
-	
 }

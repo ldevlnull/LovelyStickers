@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lovelystickersua.entity.Role;
 import com.lovelystickersua.entity.User;
@@ -45,5 +46,10 @@ public class UserServiceImp implements UserService, UserDetailsService {
 	public void delete(long id) {
 		uRepository.delete(id);
 	}
+	@Transactional
+	public User userFetch(long ID) {
+		return uRepository.fetchUser(ID);
+	}
 
+	
 }
