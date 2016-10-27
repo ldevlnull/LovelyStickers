@@ -17,7 +17,7 @@ import com.lovelystickersua.service.ProductService;
 public class ProductController {
 
 	private final static String PAGE_PRODUCT = "product";
-	private final static String BACK = "redirect:/product";
+	private final static String BACK = "redirect:/home";
 
 	@Autowired
 	private ProductService pService;

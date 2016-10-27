@@ -26,7 +26,7 @@ public class HomeController {
 	@Autowired
 	private ProductService pService;
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value={"/","/home"}, method=RequestMethod.GET)
 	public String home(Model model, Principal principal){
 		return PAGE;
 	}
@@ -38,7 +38,5 @@ public class HomeController {
 		pService.save(product);
 		return "redirect:/";
 	}
-	
-
 }
 

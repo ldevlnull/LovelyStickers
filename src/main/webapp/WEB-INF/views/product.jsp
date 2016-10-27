@@ -42,7 +42,7 @@
 		</sf:form>
 	</sec:authorize>
 	<form>
-		<button formaction="/back">Back</button>
+		<button formaction="/home">Back</button>
 	</form>
 </body>
 </html>
