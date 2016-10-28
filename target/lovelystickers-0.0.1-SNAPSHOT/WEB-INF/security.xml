@@ -10,7 +10,7 @@
 			login-processing-url="/loginprocesing"
 			authentication-success-forward-url="/home" />
 
-		<security:intercept-url pattern="/newProduct"
+		<security:intercept-url pattern="/delete"
 			method="GET" access="ROLE_ADMIN" />
 
 		<security:intercept-url pattern="/" access="permitAll()" />

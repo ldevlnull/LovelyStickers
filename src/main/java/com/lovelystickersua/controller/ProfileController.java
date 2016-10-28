@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ProfileController {
 
 	
-//	private final static String PAGE = "profile";
-//	
-//	@RequestMapping(value="/profile", method=RequestMethod.GET)
-//	public String profile(){
-//		return PAGE;
-//	}
+	private final static String PAGE = "profile";
+	
+	@RequestMapping(value="/profile", method=RequestMethod.GET)
+	public String profile(){
+		return PAGE;
+	}
 }

@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Study
-Build-Jdk: 1.8.0_91
+Built-By: root
+Build-Jdk: 9-internal
 Created-By: Maven Integration for Eclipse
 

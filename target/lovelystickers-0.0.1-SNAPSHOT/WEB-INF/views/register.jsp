@@ -20,7 +20,10 @@
 			<sf:input type="text" path="username" id="username" placeholder="Username" required="required" /> 
 			<label id="icon" for="name"><i class="icon-shield"></i></label> 
 			<sf:input type="password" path="password" id="password" placeholder="Password" required="required" />
-			<button>Register</button>
+			<table >
+			<tr><td ><button>Register</button></td></tr>
+			<tr ><td height="50px"><a id="regToLog" href="loginpage">I aready have an account!</a></td></tr>
+			</table>
 		</sf:form>
 	</div>
 </body>

@@ -36,7 +36,15 @@ public class HomeController {
 		Product product = pService.findOne(Long.parseLong(ID));
 		product.setUser(user);
 		pService.save(product);
-		return "redirect:/";
+		return "redirect:/product";
+	}
+	@RequestMapping(value="/deleteFromCart/{ID}", method = RequestMethod.GET)
+	public String delete(Principal principal, @PathVariable long ID){
+		User user = uService.userFetch(Long.parseLong(principal.getName()));
+		Product product = pService.findOne(ID);
+		product.setUser(null);
+		pService.save(product);
+		return "redirect:/profile";
 	}
 }
 

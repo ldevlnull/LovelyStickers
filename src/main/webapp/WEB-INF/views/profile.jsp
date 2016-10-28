@@ -4,6 +4,7 @@
 	prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,21 +12,23 @@
 <title>Profile</title>
 </head>
 <body>
-
-	${user.getName()}
+	<img width="128px" height="128px" src="${user.pathImage}" alt="The picture can not be showed :("/>
+	<br>
+	<h3 id="username">${user.getName()}</h3>
 	<hr>
 	<c:forEach var="product" items="${user.products}">
-			${product.name} ${product.price} <br>
+			${product.name} ${product.price} <form><button formaction="deleteFromCart/${product.ID}">Delete product from cart</button></form> <br>
 	</c:forEach>
-
-	<br><hr>
-
-	<sf:form action="saveImage" method="post" enctype="multipart/form-data">
+	<br>
+	<hr>
+	<form:form action="./saveImage?${_csrf.parameterName}=${_csrf.token}"
+		method="post" enctype="multipart/form-data">
 		<input type="file" name="image">
 		<button>Upload</button>
-	</sf:form>
-
-
-
+	</form:form>
+	<hr>
+	<form>
+		<button formaction="back/">Back</button>
+	</form>
 </body>
 </html>

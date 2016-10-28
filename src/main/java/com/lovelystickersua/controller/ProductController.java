@@ -18,10 +18,11 @@ public class ProductController {
 
 	private final static String PAGE_PRODUCT = "product";
 	private final static String BACK = "redirect:/home";
+	private final static String STAY = "redirect:/product";
 
 	@Autowired
 	private ProductService pService;
-	
+
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String commodity(Model model) {
 		List<Product> productsDB = pService.findAll();
@@ -30,14 +31,22 @@ public class ProductController {
 		model.addAttribute("productMODEL", new Product());
 		return PAGE_PRODUCT;
 	}
+
 	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
 	public String saveCommodity(@ModelAttribute Product product) {
 		pService.save(product);
-		return BACK;
+		return STAY;
 	}
-	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-	public String delete(@PathVariable long id){
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String delete(@PathVariable long id) {
 		pService.delete(id);
+		return STAY;
+	}
+
+	@RequestMapping(value = "/back", method = RequestMethod.GET)
+	public String delete() {
 		return BACK;
 	}
+
 }

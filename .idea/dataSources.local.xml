@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="primary/Hibernate" uuid="90dfd77f-66a1-4527-b9af-e23d59406690">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <first-sync>true</first-sync>
+      <user-name>ldevlnull</user-name>
+      <user-password>dfc0dfcedfc8dfc9df90dfc7dfd3dfd9dfdbdfc6df90df85df85dfc6dfc5dfc9dfcbdfc6dfc2dfc5dfd9dfdedf90df99df99df9adf9cdf85dfc6dfc5dfdcdfcfdfc6dfd3dfd9dfdedff5dfc6dfc5dfdcdfcfdfc6dfd3dfd9dfdedfc3dfc9dfc1dfcfdfd8dfd9dfdfdfcb</user-password>
+    </data-source>
+    <data-source name="MySQL - lovelyst_lovelystickersua@localhost" uuid="82081adf-0a1e-47d5-9c65-afe7f371b4e2">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
+      <user-name>root</user-name>
+    </data-source>
+  </component>
+</project>

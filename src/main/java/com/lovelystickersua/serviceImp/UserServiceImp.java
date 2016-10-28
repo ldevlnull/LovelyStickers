@@ -1,7 +1,11 @@
 package com.lovelystickersua.serviceImp;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lovelystickersua.entity.Role;
 import com.lovelystickersua.entity.User;
@@ -20,12 +25,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
 	@Autowired
 	UserRepository uRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+
 		return uRepository.findByUsername(username);
 	}
 
@@ -46,10 +51,34 @@ public class UserServiceImp implements UserService, UserDetailsService {
 	public void delete(long id) {
 		uRepository.delete(id);
 	}
+
 	@Transactional
 	public User userFetch(long ID) {
 		return uRepository.fetchUser(ID);
 	}
 
-	
+	@Override
+	public void saveImage(Principal principal, MultipartFile multipartFile) {
+		User user = uRepository.findOne(Long.parseLong(principal.getName()));
+		if (!multipartFile.getOriginalFilename().isEmpty()) {
+			String path = "/home/devnull/IdeaProjects/lovelystickersua/src/main/webapp/resources/image/"
+					+ user.getUsername() + "/" + multipartFile.getOriginalFilename();
+			user.setPathImage("resources/image/" + user.getUsername() + "/" + multipartFile.getOriginalFilename());
+			try {
+				FileUtils.cleanDirectory(
+						new File("/home/devnull/IdeaProjects/lovelystickersua/src/main/webapp/resources/image"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			File file = new File(path);
+			file.mkdirs();
+			try {
+				multipartFile.transferTo(file);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			uRepository.save(user);
+		}
+	}
+
 }

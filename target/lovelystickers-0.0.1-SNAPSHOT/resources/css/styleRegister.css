@@ -3,6 +3,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
 	padding: 0;
 	margin: 0;
 }
+
 fieldset, img {
 	border: 0
 }
@@ -55,11 +56,9 @@ html {
 	border: solid 1px #cbc9c9;
 }
 
-
 form {
 	margin: 0 30px;
 }
-
 
 hr {
 	color: #a9a9a9;
@@ -80,6 +79,12 @@ input[type=text], input[type=password] {
 	margin-left: -5px;
 	margin-top: 15px;
 	padding-left: 10px;
+}
+#regToLog{
+	padding-bottom: 50px;
+}
+table{
+	left: 100px;
 }
 
 input[type=password] {
@@ -124,4 +129,3 @@ button {
 	left: 80px;
 	position: relative;
 }
-

@@ -28,16 +28,16 @@
 			</table>
 		</form>
 	</sec:authorize>
-		<form>
-			<button formaction="product">Products</button>
-		</form>
+	<form>
+		<button formaction="product">Products</button>
+	</form>
 	<sec:authorize access="isAuthenticated()">
-	<c:forEach var="product" items="${products}">
+		<c:forEach var="product" items="${products}">
 		${product.name} ${product.price}
 	</c:forEach>
-		<form>
-			<button formaction="profile">Profile</button>
-		</form>
+			<form>
+				<button formaction="profile">Profile</button>
+			</form>
 		<sf:form action="logout" method="post">
 			<button>Log out</button>
 		</sf:form>

@@ -11,17 +11,17 @@
 <title>Product</title>
 </head>
 <body>
+	<hr>
 	<c:forEach var="product" items="${products}">
 		${product.name} ${product.price}
 		<sec:authorize access="isAuthenticated()">
 			<form>
-				<button formaction="buy/${product.ID}">Buy</button>
+				<button formaction="buy/${product.ID}">Add product to cart</button>
 				<button formaction="delete/${product.ID}">Delete</button>
 			</form>
 		</sec:authorize>
-		<hr>
 	</c:forEach>
-	<sec:authorize access="isAuthenticated()">
+	<hr>
 		<sf:form modelAttribute="productMODEL" action="newProduct"
 			method="post">
 			<table>
@@ -40,9 +40,9 @@
 				</tr>
 			</table>
 		</sf:form>
-	</sec:authorize>
+		<hr>
 	<form>
-		<button formaction="/home">Back</button>
+		<button formaction="back/">Back</button>
 	</form>
 </body>
 </html>

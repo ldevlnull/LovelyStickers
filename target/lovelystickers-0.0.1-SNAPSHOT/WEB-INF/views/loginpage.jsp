@@ -21,7 +21,10 @@
 			<label id="icon" for="name"><i class="icon-shield"></i></label>
 			<input type="password" name="password" id="password"
 				placeholder="Password" required />
-			<button class="button">Log in</button>
+			<table>
+			<tr><td><button class="button">Log in</button></td></tr>
+			<tr height="50px"><td><a href="register">Are you here for first time?</a></td></tr>
+			</table>
 		</sf:form>
 	</div>
 </body>
