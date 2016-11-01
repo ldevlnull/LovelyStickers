@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Product</title>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 </head>
 <body>
 	<hr>
@@ -20,8 +21,11 @@
 				<button formaction="delete/${product.ID}">Delete</button>
 			</form>
 		</sec:authorize>
+		<br>
 	</c:forEach>
 	<hr>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<hr>
 		<sf:form modelAttribute="productMODEL" action="newProduct"
 			method="post">
 			<table>
@@ -41,6 +45,7 @@
 			</table>
 		</sf:form>
 		<hr>
+	</sec:authorize>
 	<form>
 		<button formaction="back/">Back</button>
 	</form>

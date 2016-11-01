@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lovelystickersua.entity.User;
+import com.lovelystickersua.service.MailService;
 import com.lovelystickersua.service.UserService;
 
 @Controller
@@ -25,6 +25,9 @@ public class UserController{
 
 	@Autowired
 	private UserService uService;
+	
+	@Autowired
+	private MailService mailSender;
 
 	@RequestMapping(value = "/loginpage", method = RequestMethod.GET)
 	public String login() {
@@ -44,6 +47,7 @@ public class UserController{
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute User user) {
+		mailSender.sendMessage("Registration", user.getEmail(), "Thank you for registration, honey :3");
 		uService.save(user);
 		return BACK;
 	}

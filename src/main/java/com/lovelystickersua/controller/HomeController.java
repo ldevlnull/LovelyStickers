@@ -40,7 +40,6 @@ public class HomeController {
 	}
 	@RequestMapping(value="/deleteFromCart/{ID}", method = RequestMethod.GET)
 	public String delete(Principal principal, @PathVariable long ID){
-		User user = uService.userFetch(Long.parseLong(principal.getName()));
 		Product product = pService.findOne(ID);
 		product.setUser(null);
 		pService.save(product);
