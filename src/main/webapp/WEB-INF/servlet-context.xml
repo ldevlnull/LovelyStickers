@@ -21,5 +21,7 @@
 		<property name="maxUploadSize" value="20000000" />
 	</bean>
 	<mvc:annotation-driven />
+	<mvc:resources mapping="/resourcesImage/**" location="file:${catalina.name}/image/" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
 </beans>
