@@ -18,7 +18,7 @@
 			<sf:input type="text" path="email" id="email" placeholder="Email" required="required" /> 
 			<label id="icon" for="username"><i class="icon-user"></i></label> 
 			<sf:input type="text" path="username" id="username" placeholder="Username" required="required" /> 
-			<label id="icon" for="name"><i class="icon-shield"></i></label> 
+			<label id="icon" for="password"><i class="icon-shield"></i></label>
 			<sf:input type="password" path="password" id="password" placeholder="Password" required="required" />
 			<table >
 			<tr><td ><button>Register</button></td></tr>

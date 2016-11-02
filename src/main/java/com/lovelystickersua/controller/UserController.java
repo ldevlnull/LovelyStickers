@@ -2,13 +2,11 @@ package com.lovelystickersua.controller;
 
 import java.security.Principal;
 
+import com.lovelystickersua.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lovelystickersua.entity.User;
@@ -47,8 +45,23 @@ public class UserController{
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute User user) {
-		mailSender.sendMessage("Registration", user.getEmail(), "Thank you for registration, honey :3");
+		String ref_link = "";
+		for(int i = 0; i < 15; i++){
+			ref_link += (int)(Math.random()*10);
+		}
+		user.setActivateLink(ref_link);
+		user.setRole(Role.ROLE_UNACTIVATED_USER);
+		String message = "Thank you for registration. To activate your account follow the link http://127.0.0.1:8080/activate/"+user.getID()+"/"+ref_link;
+		mailSender.sendMessage("Registration", user.getEmail(), message);
 		uService.save(user);
+		return BACK;
+	}
+	@RequestMapping(value = "/activate/{id}/{activateLink}")
+	public String activateUser(@PathVariable int id, @PathVariable String activateLink){
+		User user = uService.userFetch(id);
+		if(activateLink.equalsIgnoreCase(user.getActivateLink())){
+			user.setRole(Role.ROLE_USER);
+		}
 		return BACK;
 	}
 

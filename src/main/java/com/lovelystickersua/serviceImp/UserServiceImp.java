@@ -35,7 +35,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
 	}
 
 	public void save(User user) {
-		user.setRole(Role.ROLE_USER);
 		user.setPassword(encoder.encode(user.getPassword()));
 		uRepository.save(user);
 	}

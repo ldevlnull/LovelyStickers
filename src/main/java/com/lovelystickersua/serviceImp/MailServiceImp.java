@@ -19,7 +19,7 @@ import com.lovelystickersua.service.MailService;
 @Service
 public class MailServiceImp implements MailService {
 
-	private final static String USERNAME = "numberlnull@gmail.com";
+	private final static String USERNAME = "xTheCraziestx@gmail.com";
 	private final static String PASSWORD = "dezember1!";
 
 	@Async

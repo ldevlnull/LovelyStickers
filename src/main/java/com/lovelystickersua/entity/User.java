@@ -19,6 +19,15 @@ public class User implements UserDetails {
 	@Column(nullable = false, unique=true)
 	private String email;
 	private String pathImage;
+	private String activateLink;
+
+	public String getActivateLink() {
+		return activateLink;
+	}
+
+	public void setActivateLink(String activateLink) {
+		this.activateLink = activateLink;
+	}
 
 	public String getPathImage() {
 		return pathImage;
