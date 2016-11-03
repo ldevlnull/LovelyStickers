@@ -60,12 +60,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
 	public void saveImage(Principal principal, MultipartFile multipartFile) {
 		User user = uRepository.findOne(Long.parseLong(principal.getName()));
 		if (!multipartFile.getOriginalFilename().isEmpty()) {
-			String path = System.getProperty("catalina.home")+"/image/"
+			String path = System.getProperty("catalina.home")+"/resources/"
 					+ user.getUsername() + "/" + multipartFile.getOriginalFilename();
 			user.setPathImage("image/" + user.getUsername() + "/" + multipartFile.getOriginalFilename());
 			try {
 				FileUtils.cleanDirectory(
-						new File(System.getProperty("catalina.home")+"/image"));
+						new File(System.getProperty("catalina.home")+"/resources/"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -79,5 +79,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
 			uRepository.save(user);
 		}
 	}
+
+	@Override
+	public User findByUsername(String username) {
+		return uRepository.findByUsername(username);
+	}
+	
 
 }

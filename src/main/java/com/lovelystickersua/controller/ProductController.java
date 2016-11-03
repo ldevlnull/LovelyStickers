@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lovelystickersua.entity.Product;
 import com.lovelystickersua.service.ProductService;
@@ -32,10 +34,18 @@ public class ProductController {
 		return PAGE_PRODUCT;
 	}
 
-	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
 	public String saveCommodity(@ModelAttribute Product product) {
 		pService.save(product);
 		return STAY;
+	}*/
+	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
+	public @ResponseBody String[] saveCommodity(@RequestBody Product product) {
+		String [] products = new String[pService.findAll().size()];
+		for(int i = 0; i < pService.findAll().size(); i++){
+			products[i] = pService.findAll().get(i).getName()+":"+pService.findAll().get(i).getPrice();
+		}
+		return products;
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

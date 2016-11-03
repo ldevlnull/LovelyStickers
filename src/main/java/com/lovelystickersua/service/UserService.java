@@ -15,4 +15,5 @@ public interface UserService {
 	void delete(long ID);
 	User userFetch(long ID);
     void saveImage(Principal principal, MultipartFile multipartFile);
+    User findByUsername(String username);
 }

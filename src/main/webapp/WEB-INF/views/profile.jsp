@@ -21,6 +21,8 @@
 			${product.name} ${product.price} <form><button formaction="deleteFromCart/${product.ID}">Delete product from cart</button></form> <br>
 	</c:forEach>
 	<br>
+	<form method="post"><button formaction="/createPurchaseOrder">Make order</button></form>
+	<br>
 	<hr>
 	<form:form action="./saveImage?${_csrf.parameterName}=${_csrf.token}"
 		method="post" enctype="multipart/form-data">

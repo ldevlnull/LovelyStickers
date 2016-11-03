@@ -1,6 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-
+p, #resendActivateLink{
+	color: #4d4d4d;
+	text-shadow: #b3b3b3;
+	
+}
 h2{
     font-size: 32px;
     color: #4d4d4d;

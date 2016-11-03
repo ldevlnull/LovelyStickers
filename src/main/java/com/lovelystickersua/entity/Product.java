@@ -19,9 +19,11 @@ public class Product {
 	private String name;
 	@Column(nullable=false)
 	private String price;
+	@ManyToOne(fetch=FetchType.LAZY)
+	private PurchaseOrder purchaseOrder;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	User user;
+	private User user;
 
 	@Override
 	public String toString() {

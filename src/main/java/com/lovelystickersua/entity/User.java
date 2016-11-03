@@ -20,6 +20,8 @@ public class User implements UserDetails {
 	private String email;
 	private String pathImage;
 	private String activateLink;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
+	private List<PurchaseOrder> purchaseOrders;
 
 	public String getActivateLink() {
 		return activateLink;
