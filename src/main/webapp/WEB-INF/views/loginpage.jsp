@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-<link href="resources/css/styleRegister.css" rel="stylesheet" type="text/css">
+<link href="/css/styleRegister.css" rel="stylesheet" type="text/css">
 <title>Login page</title>
 </head>
 <body>
@@ -18,7 +18,7 @@
 			<label id="icon" for="username"><i class="icon-user"></i></label>
 			<input type="text" name="username" id="username"
 				placeholder="Username" required />
-			<label id="icon" for="name"><i class="icon-shield"></i></label>
+			<label id="icon" for="password"><i class="icon-shield"></i></label>
 			<input type="password" name="password" id="password"
 				placeholder="Password" required />
 			<table>

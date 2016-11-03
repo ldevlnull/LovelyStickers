@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Home</title>
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 <script>
 	function resendLink(){
 		alert("Activation link was sended");
@@ -52,9 +52,11 @@
 					<button formaction="profile">Profile</button>
 				</form>
 			</sec:authorize>
-				<sf:form action="logout" method="post">
-					<button>Log out</button>
-				</sf:form>
+				<sec:authorize access="isAuthenticated()">
+					<sf:form action="logout" method="post">
+						<button>Log out</button>
+					</sf:form>
+				</sec:authorize>
 		</div>
 	</div>
 </body>

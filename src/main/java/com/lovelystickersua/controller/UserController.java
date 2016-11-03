@@ -1,6 +1,8 @@
 package com.lovelystickersua.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.lovelystickersua.entity.Product;
 import com.lovelystickersua.entity.PurchaseOrder;
@@ -61,7 +63,7 @@ public class UserController {
 		}
 		user.setActivateLink(ref_link);
 		user.setRole(Role.ROLE_UNACTIVATED_USER);
-		String message = "Hello!\nThank you for registration. To activate your account follow the link http://127.0.0.1:8080/lovelystickers/activation/"
+		String message = "Hello!\nThank you for registration. To activate your account follow the link http://127.0.0.1:8080/activation/"
 				+ ref_link + "/" + user.getName();
 		mailSender.sendMessage("Registration", user.getEmail(), message);
 		uService.save(user);
@@ -75,9 +77,8 @@ public class UserController {
 		System.out.println("link"+activationLink);
 		System.out.println("user"+user.getActivateLink());
 		if (activationLink.equalsIgnoreCase(user.getActivateLink())) {
-			user.setRole(Role.ROLE_USER);
+			uService.activateUser(Long.parseLong(user.getUsername()));
 		}
-		uService.save(user);
 		return BACK;
 	}
 
@@ -85,7 +86,7 @@ public class UserController {
 	public String resendActivationLink(Principal principal) {
 		User user = uService.findOne(Long.parseLong(principal.getName()));
 		String ref_link = user.getActivateLink();
-		String message = "Hello! \nTo activate your account follow the link http://127.0.0.1:8080/lovelystickers/activation/"
+		String message = "Hello! \nTo activate your account follow the link http://127.0.0.1:8080/activation/"
 				+ ref_link + "/" + user.getName();
 		mailSender.sendMessage("Registration", user.getEmail(), message);
 		return BACK;
@@ -94,7 +95,7 @@ public class UserController {
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile(Principal principal, Model model) {
-		model.addAttribute("user", uService.findOne(Long.parseLong(principal.getName())));
+		model.addAttribute("user", uService.userFetch(Long.parseLong(principal.getName())));
 		return PAGE_PROFILE;
 	}
 
@@ -108,16 +109,14 @@ public class UserController {
 
 	@RequestMapping(value = "/createPurchaseOrder", method = RequestMethod.POST)
 	public String createPurchaseOrder(Principal principal) {
-		User user = uService.findOne(Long.parseLong(principal.getName()));
+		long user_ID = Long.parseLong(principal.getName());
+		User user = uService.userFetch(user_ID);
 		PurchaseOrder purchaseOrder = new PurchaseOrder(user, user.getProducts());
 		poService.save(purchaseOrder);
-		for (Product p : user.getProducts()) {
-			pService.delete(p.getID());
-		}
-		mailSender.sendMessage("New order", "numberlnull@gmail.com",
-				"New order: \nName:" + purchaseOrder.getOffer_name() + "\nDate: " + purchaseOrder.getOffer_date()
-						+ "\nUser: " + purchaseOrder.getUser() + "\nProduct list: " + purchaseOrder.getProducts()
-						+ "\n\n\nTotal price: " + purchaseOrder.getTotalPrice());
+		mailSender.sendMessage("Новый заказ", "numberlnull@gmail.com",
+				"Новый заказ:\nИмя заказа:" + purchaseOrder.getOffer_name() + "\nДата заказа: " + purchaseOrder.getOffer_date()
+						+ "\nИнформация о заказе: " + purchaseOrder.getProducts()
+						+ "\n\n\nСуммарная цена: " + purchaseOrder.getTotalPrice()+"$");
 		return PAGE_PROFILE;
 	}
 

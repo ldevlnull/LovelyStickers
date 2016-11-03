@@ -5,15 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.lovelystickersua.entity.Product;
 import com.lovelystickersua.service.ProductService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ProductController {
@@ -34,19 +30,20 @@ public class ProductController {
 		return PAGE_PRODUCT;
 	}
 
-/*	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
-	public String saveCommodity(@ModelAttribute Product product) {
+	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
+	public String saveCommodity(@ModelAttribute Product product, @RequestParam MultipartFile image) {
+		product.setProductIconPath(pService.saveIcon(image));
 		pService.save(product);
 		return STAY;
-	}*/
-	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
-	public @ResponseBody String[] saveCommodity(@RequestBody Product product) {
-		String [] products = new String[pService.findAll().size()];
-		for(int i = 0; i < pService.findAll().size(); i++){
-			products[i] = pService.findAll().get(i).getName()+":"+pService.findAll().get(i).getPrice();
-		}
-		return products;
 	}
+//	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
+//	public @ResponseBody String[] saveCommodity(@RequestBody Product product) {
+//		String [] products = new String[pService.findAll().size()];
+//		for(int i = 0; i < pService.findAll().size(); i++){
+//			products[i] = pService.findAll().get(i).getName()+":"+pService.findAll().get(i).getPrice();
+//		}
+//		return products;
+//	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable long id) {

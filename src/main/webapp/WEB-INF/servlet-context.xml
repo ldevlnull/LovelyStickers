@@ -17,8 +17,9 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="20000000" />
 	</bean>
-	<mvc:resources mapping="/resourcesImage/**" location="file:${catalina.name}/image/" />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/resources/**" location="file:${catalina.home}/resources/"/>
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/"/>
 
 	<mvc:annotation-driven>
 		<mvc:message-converters>

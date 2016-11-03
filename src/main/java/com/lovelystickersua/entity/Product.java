@@ -21,13 +21,30 @@ public class Product {
 	private String price;
 	@ManyToOne(fetch=FetchType.LAZY)
 	private PurchaseOrder purchaseOrder;
+	private String productIconPath;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private User user;
 
 	@Override
 	public String toString() {
-		return "Product [name=" + name + ", price=" + price + ", users=" + user + "]";
+		return "Товар: имя товара " + name + "; цена"+ price + "; заказчик: " + user;
+	}
+
+	public PurchaseOrder getPurchaseOrder() {
+		return purchaseOrder;
+	}
+
+	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
+	}
+
+	public String getProductIconPath() {
+		return productIconPath;
+	}
+
+	public void setProductIconPath(String productIconPath) {
+		this.productIconPath = productIconPath;
 	}
 
 	public long getID() {

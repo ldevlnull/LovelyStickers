@@ -16,4 +16,5 @@ public interface UserService {
 	User userFetch(long ID);
     void saveImage(Principal principal, MultipartFile multipartFile);
     User findByUsername(String username);
+	void activateUser(long ID);
 }

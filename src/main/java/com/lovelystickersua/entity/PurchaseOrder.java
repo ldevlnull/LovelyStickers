@@ -74,8 +74,7 @@ public class PurchaseOrder {
 	}
 	@Override
 	public String toString() {
-		return "PurchaseOrder [offer_name=" + offer_name + ", offer_date=" + offer_date + ", totalPrice=" + totalPrice
-				+ "]";
+		return "Заказ: имя заказа:" + offer_name + "; дата заказа: " + offer_date + "; суммарная цена за заказ:" + totalPrice;
 	}
 	public String getTotalPrice() {
 		return totalPrice;
