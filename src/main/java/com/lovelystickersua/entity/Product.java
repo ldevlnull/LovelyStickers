@@ -1,13 +1,9 @@
 package com.lovelystickersua.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+
+import java.util.*;
 
 @Entity
 public class Product {
@@ -23,12 +19,12 @@ public class Product {
 	private PurchaseOrder purchaseOrder;
 	private String productIconPath;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private User user;
+	@ManyToMany(fetch=FetchType.LAZY)
+	private List<User> users;
 
 	@Override
 	public String toString() {
-		return "\nТовар: \nИмя товара: " + name + "\nЦена: "+ price + "$\nЗаказчик: " + user;
+		return "\n\tТовар: \n\t\tНазва товару: " + name + "\n\t\tВартість: "+ price + "$";
 	}
 
 	public PurchaseOrder getPurchaseOrder() {
@@ -71,12 +67,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public User getUser() {
-		return user;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	public Product(String name, String price) {

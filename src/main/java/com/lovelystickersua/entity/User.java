@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private String activateLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<PurchaseOrder> purchaseOrders;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Product> products;
     @Enumerated
     private Role role;
@@ -135,7 +135,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "Пользователь: имя пользователя " + username +" ; электронная почта " + email;
+        return "Користувач: \n\tім'я " + username +"\n\tэлектронна адреса" + email;
     }
 
     public String getName() {
