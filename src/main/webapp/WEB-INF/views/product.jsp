@@ -8,12 +8,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Product</title>
+    <title>Магазин</title>
     <script src="/js/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/styleProduct.css">
 
 </head>
-<body>
+<body <sec:authorize access="!isAuthenticated() || hasRole('ROLE_UNACTIVATED_USER')"> onload="alert('Вы должны зарегистрироваться, чтобы купить товар!')" </sec:authorize >
 <hr>
 <table>
 <c:forEach var="product" items="${products}">
@@ -28,7 +28,7 @@
                 <sec:authorize access="isAuthenticated()">
                 <form>
                     <sec:authorize access="!hasRole('ROLE_ADMIN')">
-                        <button formaction="buy/${product.ID}">Add product to cart</button>
+                        <button formaction="buy/${product.ID}">Додати товар до кошика</button>
                     </sec:authorize>
                 </form>
                 </sec:authorize>
@@ -43,14 +43,13 @@
             <td>
                 <sec:authorize access="isAuthenticated()">
                     <form>
-                        <button formaction="delete/${product.ID}">Delete</button>
+                        <button formaction="delete/${product.ID}">Видалити</button>
                     </form>
                 </sec:authorize>
             </td>
         </tr>
 </c:forEach>
 </table>
-
 <hr>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
     <hr>
@@ -58,11 +57,11 @@
                method="post" enctype="multipart/form-data">
         <table>
             <tr>
-                <td><label for="name">Name:</label></td>
+                <td><label for="name">Назва:</label></td>
                 <td><form:input id="name" path="name"/></td>
             </tr>
             <tr>
-                <td><label for="price">Price:</label></td>
+                <td><label for="price">Вартість:</label></td>
                 <td><form:input id="price" path="price"/></td>
             </tr>
             <tr>
@@ -70,7 +69,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button>Save product</button>
+                    <button>Зберегти</button>
                 </td>
             </tr>
         </table>
@@ -118,7 +117,7 @@
     <hr>
 </sec:authorize>
 <form>
-    <button formaction="back/">Back</button>
+    <button formaction="back/">Назад</button>
 </form>
 <input type="hidden" name="csrf_name" value="${_csrf.parameterName}"/>
 <input type="hidden" name="csrf_value" value="${_csrf.token}"/>

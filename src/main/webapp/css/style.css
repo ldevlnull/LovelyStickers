@@ -5,6 +5,9 @@ p, #resendActivateLink{
 	text-shadow: #b3b3b3;
 	
 }
+#username{
+    size: 36px;
+}
 h2{
     font-size: 32px;
     color: #4d4d4d;

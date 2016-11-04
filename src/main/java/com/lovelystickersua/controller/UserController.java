@@ -44,7 +44,7 @@ public class UserController {
 		return PAGE_LOGIN;
 	}
 
-	@RequestMapping(value = { "/home", "/logout" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/home", "/logout", "/activate" }, method = RequestMethod.POST)
 	public String logout() {
 		return BACK;
 	}
@@ -61,13 +61,17 @@ public class UserController {
 		for (int i = 0; i < 15; i++) {
 			ref_link += (int) (Math.random() * 10);
 		}
-		user.setActivateLink(ref_link);
-		user.setRole(Role.ROLE_UNACTIVATED_USER);
-		String message = "Hello!\nThank you for registration. To activate your account follow the link http://127.0.0.1:8080/activation/"
-				+ ref_link + "/" + user.getName();
-		mailSender.sendMessage("Registration", user.getEmail(), message);
-		uService.save(user);
-		return BACK;
+		try {
+			user.setActivateLink(ref_link);
+			user.setRole(Role.ROLE_UNACTIVATED_USER);
+			uService.save(user);
+			String message = "Привет!\nСпасибо за регистрацию. Чтобы активировать ваш аккаунт перейдите по ссылке http://lovelystickersua.com/activation/"
+					+ ref_link + "/" + user.getName();
+			mailSender.sendMessage("Регистрация на сайте lovelystickersua.com", user.getEmail(), message);
+			return BACK;
+		}catch (Exception e){
+			return BACK;
+		}
 	}
 
 	@RequestMapping(value = "/activation/{activationLink}/{username}")
@@ -86,9 +90,9 @@ public class UserController {
 	public String resendActivationLink(Principal principal) {
 		User user = uService.findOne(Long.parseLong(principal.getName()));
 		String ref_link = user.getActivateLink();
-		String message = "Hello! \nTo activate your account follow the link http://127.0.0.1:8080/activation/"
+		String message = "Привет! \nВы запросили повторную отправку ссылки для подтверждения http://lovelystickersua.com/activation/"
 				+ ref_link + "/" + user.getName();
-		mailSender.sendMessage("Registration", user.getEmail(), message);
+		mailSender.sendMessage("Повторное подтверждение", user.getEmail(), message);
 		return BACK;
 	}
 	
@@ -111,13 +115,21 @@ public class UserController {
 	public String createPurchaseOrder(Principal principal) {
 		long user_ID = Long.parseLong(principal.getName());
 		User user = uService.userFetch(user_ID);
-		PurchaseOrder purchaseOrder = new PurchaseOrder(user, user.getProducts());
-		poService.save(purchaseOrder);
-		mailSender.sendMessage("Новый заказ", "numberlnull@gmail.com",
-				"Новый заказ:\nИмя заказа:" + purchaseOrder.getOffer_name() + "\nДата заказа: " + purchaseOrder.getOffer_date()
-						+ "\nИнформация о заказе: " + purchaseOrder.getProducts()
-						+ "\n\n\nСуммарная цена: " + purchaseOrder.getTotalPrice()+"$");
-		return PAGE_PROFILE;
+		if(!user.getProducts().isEmpty()) {
+			List<Product> list = user.getProducts();
+			PurchaseOrder purchaseOrder = new PurchaseOrder(user, list);
+			poService.save(purchaseOrder);
+			mailSender.sendMessage("Ваш заказ", user.getEmail(), ("Вы заказали: " + purchaseOrder.getProducts() + "\n\nДата: " + purchaseOrder.getOffer_date()).replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
+			mailSender.sendMessage("Новый заказ", "numberlnull@gmail.com",
+					("Новый заказ:\nИмя заказа:" + purchaseOrder.getOffer_name() + "\nДата заказа: " + purchaseOrder.getOffer_date()
+							+ "\nИнформация о заказе: " + purchaseOrder.getProducts()
+							+ "\n\n\nСуммарная цена: " + purchaseOrder.getTotalPrice() + "$").replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
+			for (Product product : list) {
+				product.setUser(null);
+				pService.save(product);
+			}
+		}
+		return "redirect:/"+PAGE_PROFILE;
 	}
 
 }

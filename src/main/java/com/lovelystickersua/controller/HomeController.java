@@ -30,6 +30,7 @@ public class HomeController {
 	public String home(Model model, Principal principal){
 		return PAGE;
 	}
+
 	@RequestMapping(value="/buy/{ID}", method=RequestMethod.GET)
 	public String home(Principal principal, @PathVariable String ID){	
 		User user = uService.userFetch(Long.parseLong(principal.getName()));	

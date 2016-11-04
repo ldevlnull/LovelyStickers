@@ -19,8 +19,8 @@ import com.lovelystickersua.service.MailService;
 @Service
 public class MailServiceImp implements MailService {
 
-	private final static String USERNAME = "xTheCraziestx@gmail.com";
-	private final static String PASSWORD = "dezember1!";
+	private final static String USERNAME = "lovelystickersua.com@gmail.com";
+	private final static String PASSWORD = "19873254";
 
 	@Async
 	public void sendMessage(String content, String email, String mailBody) {

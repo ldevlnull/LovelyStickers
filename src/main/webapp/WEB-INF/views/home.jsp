@@ -8,11 +8,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Home</title>
+<title>Головна</title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <script>
 	function resendLink(){
-		alert("Activation link was sended");
+		alert("Лист з інформацією про активацію був надісланний.");
 	}
 </script>
 </head>
@@ -20,41 +20,32 @@
 	<div class="login-page">
 		<div class="form">
 			<sec:authorize access="hasRole('ROLE_UNACTIVATED_USER')">
-				<p>You must activate your account by following link in your
-					email</p>
+				<p>Ви маєте активувати вашу сторінку за допомогою листа, що був надісланний на вашу електронну адресу</p>
 				<p id="ResendLinkText">
-					<a id="resendActivateLink" href="resendActivateLink/" onclick="resendLink()">Don't
-						have a link?</a>
+					<a id="resendActivateLink" href="resendActivateLink/" onclick="resendLink()">Нема листа?</a>
 			</sec:authorize>
 			<sec:authorize access="!isAuthenticated()">
 				<form>
-					<!-- 	<table>
-						<tr>
-							<td> -->
-					<button formaction="register">Sign up</button>
+					<button formaction="register">Зареєструватися
+					</button>
 					<br>
-					<!-- 	</td>
-							<td> -->
-					<button formaction="loginpage">Log in</button>
+					<button formaction="loginpage">Увійти</button>
 					<hr>
-					<!-- </td>
-						</tr>
-					</table> -->
 				</form>
 			</sec:authorize>
-				<sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')">
+				<sec:authorize access="!hasRole('ROLE_UNACTIVATED_USER')">
 					<form>
-						<button formaction="product">Products</button>
+						<button formaction="product">Магазин</button>
 					</form>
 				</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<form>
-					<button formaction="profile">Profile</button>
+					<button formaction="profile">Особистий кабінет</button>
 				</form>
 			</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<sf:form action="logout" method="post">
-						<button>Log out</button>
+						<button>Вийти</button>
 					</sf:form>
 				</sec:authorize>
 		</div>

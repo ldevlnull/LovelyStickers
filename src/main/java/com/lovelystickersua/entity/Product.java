@@ -28,7 +28,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Товар: имя товара " + name + "; цена"+ price + "; заказчик: " + user;
+		return "\nТовар: \nИмя товара: " + name + "\nЦена: "+ price + "$\nЗаказчик: " + user;
 	}
 
 	public PurchaseOrder getPurchaseOrder() {
