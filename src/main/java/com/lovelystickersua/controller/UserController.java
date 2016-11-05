@@ -26,6 +26,7 @@ public class UserController {
 	private final static String PAGE_REGISTER = "register";
 	private final static String BACK = "redirect:/";
 	private final static String PAGE_PROFILE = "profile";
+	private final static String EMAILS[] = {"numberlnull@gmail.com"};
 
 	@Autowired
 	private ProductService pService;
@@ -65,7 +66,7 @@ public class UserController {
 			user.setActivateLink(ref_link);
 			user.setRole(Role.ROLE_UNACTIVATED_USER);
 			uService.save(user);
-			String message = "Привет!\nСпасибо за регистрацию. Чтобы активировать ваш аккаунт перейдите по ссылке http://lovelystickersua.com/activation/"
+			String message = "Привіт!\nДякуємо за реєстрацію. Щоб активувати ваш аккаунт перейдіть http://lovelystickersua.com/activation/"
 					+ ref_link + "/" + user.getName();
 			mailSender.sendMessage("Регистрация на сайте lovelystickersua.com", user.getEmail(), message);
 			return BACK;
@@ -90,9 +91,9 @@ public class UserController {
 	public String resendActivationLink(Principal principal) {
 		User user = uService.findOne(Long.parseLong(principal.getName()));
 		String ref_link = user.getActivateLink();
-		String message = "Привет! \nВы запросили повторную отправку ссылки для подтверждения http://lovelystickersua.com/activation/"
+		String message = "Привіт! \nВи запросили повторну відправку листа підтвердженння http://127.0.0.1:8080/activation/"
 				+ ref_link + "/" + user.getName();
-		mailSender.sendMessage("Повторное подтверждение", user.getEmail(), message);
+		mailSender.sendMessage("Повторне підтвердження", user.getEmail(), message);
 		return BACK;
 	}
 	
@@ -119,13 +120,15 @@ public class UserController {
 			List<Product> list = user.getProducts();
 			PurchaseOrder purchaseOrder = new PurchaseOrder(user, list);
 			poService.save(purchaseOrder);
-			mailSender.sendMessage("Ваш заказ", user.getEmail(), ("Вы заказали: " + purchaseOrder.getProducts() + "\n\nДата: " + purchaseOrder.getOffer_date()).replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
-			mailSender.sendMessage("Новый заказ", "numberlnull@gmail.com",
-					("Новый заказ:\nИмя заказа:" + purchaseOrder.getOffer_name() + "\nДата заказа: " + purchaseOrder.getOffer_date()
-							+ "\nИнформация о заказе: " + purchaseOrder.getProducts()
-							+ "\n\n\nСуммарная цена: " + purchaseOrder.getTotalPrice() + "$").replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
+			mailSender.sendMessage("Ваше замовлення", user.getEmail(), ("Ви замовили: " + purchaseOrder.getProducts() + "\n\nДата: " + purchaseOrder.getOffer_date()).replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
+			for(String email : EMAILS) {
+				mailSender.sendMessage("Нове замовлення",  email,
+						("Новый заказ:\nНазва замовлення" + purchaseOrder.getOffer_name() + "\nДата замовлення: " + purchaseOrder.getOffer_date()
+								+ "\nІнформація про замовлення: " + purchaseOrder.getProducts()
+								+ "\n\n\nСуммарная ціна: " + purchaseOrder.getTotalPrice() + "$").replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
+			}
 			for (Product product : list) {
-				product.setUser(null);
+				product.getUsers().remove(user);
 				pService.save(product);
 			}
 		}

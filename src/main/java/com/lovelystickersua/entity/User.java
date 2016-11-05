@@ -24,6 +24,9 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<PurchaseOrder> purchaseOrders;
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
     @Enumerated
     private Role role;

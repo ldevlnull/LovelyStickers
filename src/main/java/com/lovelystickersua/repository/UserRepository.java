@@ -9,7 +9,7 @@ import com.lovelystickersua.entity.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 
 	User findByUsername(String username);
-	
-	@Query(value="select u from User u left join fetch u.products p where u.ID =:ID")
+
+	@Query(value = "select u from User u left join fetch u.products c where u.ID =:ID")
 	User fetchUser(@Param("ID") long ID);
 }

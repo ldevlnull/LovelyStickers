@@ -21,7 +21,7 @@
 			<label id="icon" for="password"><i class="icon-shield"></i></label>
 			<form:input type="password" path="password" id="password" placeholder="Пароль" required="required" />
 			<table >
-			<tr><td ><button onclick="alert('Лист з підтвердженням був надісланний')">Register</button></td></tr>
+			<tr><td ><button onclick="">Register</button></td></tr>
 			<tr><td height="50px"><a id="regToLog" href="loginpage">Я вже зареєстрований!</a></td></tr>
 			</table>
 		</form:form>

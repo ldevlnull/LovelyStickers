@@ -35,14 +35,15 @@ public class HomeController {
 	public String home(Principal principal, @PathVariable String ID){	
 		User user = uService.userFetch(Long.parseLong(principal.getName()));	
 		Product product = pService.findOne(Long.parseLong(ID));
-		product.setUser(user);
+		product.getUsers().add(user);
 		pService.save(product);
 		return "redirect:/product";
 	}
 	@RequestMapping(value="/deleteFromCart/{ID}", method = RequestMethod.GET)
 	public String delete(Principal principal, @PathVariable long ID){
 		Product product = pService.findOne(ID);
-		product.setUser(null);
+		User user = uService.userFetch(Long.parseLong(principal.getName()));
+		product.getUsers().remove(user);
 		pService.save(product);
 		return "redirect:/profile";
 	}

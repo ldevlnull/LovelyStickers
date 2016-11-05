@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/css/styleProduct.css">
 
 </head>
-<body <sec:authorize access="!isAuthenticated() || hasRole('ROLE_UNACTIVATED_USER')"> onload="alert('Вы должны зарегистрироваться, чтобы купить товар!')" </sec:authorize >
+<body <sec:authorize access="!isAuthenticated() || hasRole('ROLE_UNACTIVATED_USER')"> onload="alert('Ви маєте зареєструватись, щоб замовити товар.')" </sec:authorize >
 <hr>
 <table>
 <c:forEach var="product" items="${products}">

@@ -20,6 +20,9 @@ public class Product {
 	private String productIconPath;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "user_product",
+			joinColumns = @JoinColumn(name = "product_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
 	@Override
