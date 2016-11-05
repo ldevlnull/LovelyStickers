@@ -6,9 +6,9 @@
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url"
-				value="jdbc:mysql://localhost:3306/lovelyst_lovelystickersua" />
+				value="jdbc:mysql://localhost:3306/lovelyst_lovelystickersua?UseUnicode=true&amp;characterEncoding=utf8" />
 			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="root" />
+			<property name="hibernate.connection.password" value="123456" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
@@ -17,6 +17,7 @@
 			<property name="hibernate.hikari.minimumIdle" value="20" />
 			<property name="hibernate.hikari.maximumPoolSize" value="100" />
 			<property name="hibernate.hikari.idleTimeout" value="30000" />
+			<property name="hibernate.connection.CharSet" value="utf8"/>
 		</properties>
 	</persistence-unit>
 </persistence>

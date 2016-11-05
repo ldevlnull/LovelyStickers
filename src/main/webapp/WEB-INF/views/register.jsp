@@ -6,7 +6,7 @@
 <head>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-<link href="/css/styleRegister.css" rel="stylesheet" type="text/css">
+<link href="css/styleRegister.css" rel="stylesheet" type="text/css">
 <title>Сторінка реєстрації</title>
 </head>
 <body>
@@ -17,7 +17,7 @@
 			<label id="icon" for="email"><i class="icon-envelope "></i></label> 
 			<form:input type="text" path="email" id="email" placeholder="Електронна адреса" required="required" />
 			<label id="icon" for="username"><i class="icon-user"></i></label>
-			<form:input path="username" id="username" placeholder="Логін" required="required" />
+			<input name="username" type="text" id="username" placeholder="Логін" required="required" />
 			<label id="icon" for="password"><i class="icon-shield"></i></label>
 			<form:input type="password" path="password" id="password" placeholder="Пароль" required="required" />
 			<table >

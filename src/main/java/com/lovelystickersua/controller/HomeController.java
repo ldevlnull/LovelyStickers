@@ -19,6 +19,8 @@ import com.lovelystickersua.service.UserService;
 public class HomeController {
 
 	private final static String PAGE = "home";
+	private final static String PROFILE = "redirect:/profile";
+	private final static String PRODUCT = "redirect:/product";
 	
 	@Autowired
 	private UserService uService;
@@ -34,18 +36,18 @@ public class HomeController {
 	@RequestMapping(value="/buy/{ID}", method=RequestMethod.GET)
 	public String home(Principal principal, @PathVariable String ID){	
 		User user = uService.userFetch(Long.parseLong(principal.getName()));	
-		Product product = pService.findOne(Long.parseLong(ID));
+		Product product = pService.productFetch(Long.parseLong(ID));
 		product.getUsers().add(user);
 		pService.save(product);
-		return "redirect:/product";
+		return PRODUCT;
 	}
 	@RequestMapping(value="/deleteFromCart/{ID}", method = RequestMethod.GET)
 	public String delete(Principal principal, @PathVariable long ID){
-		Product product = pService.findOne(ID);
+		Product product = pService.productFetch(ID);
 		User user = uService.userFetch(Long.parseLong(principal.getName()));
 		product.getUsers().remove(user);
 		pService.save(product);
-		return "redirect:/profile";
+		return PROFILE;
 	}
 }
 

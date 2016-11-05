@@ -20,6 +20,7 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
     private String pathImage;
+    @Column(unique=true)
     private String activateLink;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<PurchaseOrder> purchaseOrders;

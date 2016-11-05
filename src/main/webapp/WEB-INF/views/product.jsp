@@ -10,10 +10,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Магазин</title>
     <script src="/js/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/styleProduct.css">
+    <link rel="stylesheet" type="text/css" href="css/styleProduct.css">
 
 </head>
-<body <sec:authorize access="!isAuthenticated() || hasRole('ROLE_UNACTIVATED_USER')"> onload="alert('Ви маєте зареєструватись, щоб замовити товар.')" </sec:authorize >
+<body <sec:authorize access="!isAuthenticated() || hasRole('ROLE_UNACTIVATED_USER')"> onload="alert('Ви маєте зареєструватись, щоб замовити товар.')" </sec:authorize >>
 <hr>
 <table>
 <c:forEach var="product" items="${products}">
@@ -32,7 +32,6 @@
                     </sec:authorize>
                 </form>
                 </sec:authorize>
-            </td>
             </td>
         </tr>
         <tr>

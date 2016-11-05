@@ -12,4 +12,5 @@ public interface ProductService{
 	List<Product> findAll();
 	void delete(Long id);
 	String saveIcon(MultipartFile multipartFile);
+	Product productFetch(long ID);
 }

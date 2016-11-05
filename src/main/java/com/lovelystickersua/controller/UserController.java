@@ -1,18 +1,21 @@
 package com.lovelystickersua.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lovelystickersua.entity.Product;
 import com.lovelystickersua.entity.PurchaseOrder;
 import com.lovelystickersua.entity.Role;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.lovelystickersua.entity.User;
 import com.lovelystickersua.service.MailService;
 import com.lovelystickersua.service.ProductService;
@@ -57,12 +60,13 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute User user) {
+	public String register(@ModelAttribute User user, @RequestParam String username) {
 		String ref_link = "";
 		for (int i = 0; i < 15; i++) {
 			ref_link += (int) (Math.random() * 10);
 		}
 		try {
+			user.setUsername(username);
 			user.setActivateLink(ref_link);
 			user.setRole(Role.ROLE_UNACTIVATED_USER);
 			uService.save(user);
