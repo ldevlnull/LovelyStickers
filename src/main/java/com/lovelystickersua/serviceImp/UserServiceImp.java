@@ -64,9 +64,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
 					+ user.getUsername() + "/" + multipartFile.getOriginalFilename();
 			user.setPathImage("resources/user_icon/" + user.getUsername() + "/" + multipartFile.getOriginalFilename());
 			try {
-				FileUtils.cleanDirectory(
-						new File(System.getProperty("catalina.home")+"/resources/user_icon/"));
-			} catch (IOException e) {
+				File folder = new File(System.getProperty("catalina.home")+"/resources/user_icon/"+user.getUsername()+"/");
+				if(folder.exists()) {
+					FileUtils.cleanDirectory(folder);
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			File file = new File(path);

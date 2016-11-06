@@ -133,7 +133,7 @@ public class UserController {
 			mailSender.sendMessage("Ваше замовлення", user.getEmail(), ("Ви замовили: " + purchaseOrder.getProducts() + "\n\nДата: " + purchaseOrder.getOffer_date()).replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
 			for(String email : EMAILS) {
 				mailSender.sendMessage("Нове замовлення",  email,
-						("Нове замовлення:\nНазва замовлення: " + purchaseOrder.getOffer_name().replace(" ", "") + "\nДата замовлення: " + purchaseOrder.getOffer_date()
+						("Нове замовлення:\t\nЗамовник:"+user.getName()+"\nНазва замовлення: " + purchaseOrder.getOffer_name().replace(" ", "") + "\nДата замовлення: " + purchaseOrder.getOffer_date()
 								+ "\nІнформація про замовлення: " + purchaseOrder.getProducts()
 								+ "\n\n\nСуммарная ціна: " + purchaseOrder.getTotalPrice() + "$").replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
 			}
