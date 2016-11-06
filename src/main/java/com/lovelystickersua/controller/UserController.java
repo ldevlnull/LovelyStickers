@@ -1,6 +1,7 @@
 package com.lovelystickersua.controller;
 
 import java.security.Principal;
+import java.security.SecureRandom;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import com.lovelystickersua.service.MailService;
 import com.lovelystickersua.service.ProductService;
 import com.lovelystickersua.service.PurchaseOrderService;
 import com.lovelystickersua.service.UserService;
+
+import javax.annotation.Generated;
 
 @Controller
 public class UserController {
@@ -44,7 +47,7 @@ public class UserController {
 	@Autowired
 	private PurchaseOrderService poService;
 
-	@RequestMapping(value = "/loginpage", method = RequestMethod.GET)
+	@RequestMapping(value = {"/loginpage"}, method = RequestMethod.GET)
 	public String login() {
 		return PAGE_LOGIN;
 	}
@@ -62,11 +65,17 @@ public class UserController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute User user, @RequestParam String username) {
-		String ref_link = user.getActivateLink();
-/*		for (int i = 0; i < 15; i++) {
-			ref_link += (int) (Math.random() * 10);
-		}*/
+		/* generate confirm link */
+		SecureRandom secureRandom = new SecureRandom();
+		StringBuilder ref_link = new StringBuilder("");
+		char random_symbol[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		for(int i = 0; i < 6; i++){
+			ref_link.append(secureRandom.nextInt());
+			ref_link.append(random_symbol[(int)(Math.random()*53)]);
+		}
+		/* end generate confirm link */
 		try {
+			user.setActivateLink(ref_link.toString());
 			user.setUsername(username);
 			user.setRole(Role.ROLE_UNACTIVATED_USER);
 			uService.save(user);
@@ -82,10 +91,10 @@ public class UserController {
 	@RequestMapping(value = "/activation/{activationLink}/{username}")
 	public String activateUser(@PathVariable String activationLink, @PathVariable String username) {
 		User user = uService.findByUsername(username);
-		if (activationLink.equalsIgnoreCase(user.getActivateLink())) {
+		if (activationLink.equals(user.getActivateLink())) {
 			uService.activateUser(Long.parseLong(user.getUsername()));
 		}
-		return REFRESH;
+		return PAGE_LOGIN;
 	}
 
 	@RequestMapping(value = "/resendActivateLink", method=RequestMethod.GET)
@@ -124,7 +133,7 @@ public class UserController {
 			mailSender.sendMessage("Ваше замовлення", user.getEmail(), ("Ви замовили: " + purchaseOrder.getProducts() + "\n\nДата: " + purchaseOrder.getOffer_date()).replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
 			for(String email : EMAILS) {
 				mailSender.sendMessage("Нове замовлення",  email,
-						("Нове замовлення:\nНазва замовлення: " + purchaseOrder.getOffer_name() + "\nДата замовлення: " + purchaseOrder.getOffer_date()
+						("Нове замовлення:\nНазва замовлення: " + purchaseOrder.getOffer_name().replace(" ", "") + "\nДата замовлення: " + purchaseOrder.getOffer_date()
 								+ "\nІнформація про замовлення: " + purchaseOrder.getProducts()
 								+ "\n\n\nСуммарная ціна: " + purchaseOrder.getTotalPrice() + "$").replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
 			}
