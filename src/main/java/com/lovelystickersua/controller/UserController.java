@@ -27,9 +27,10 @@ public class UserController {
 
 	private final static String PAGE_LOGIN = "loginpage";
 	private final static String PAGE_REGISTER = "register";
-	private final static String BACK = "redirect:/";
+	private final static String REFRESH = "redirect:/";
 	private final static String PAGE_PROFILE = "profile";
 	private final static String EMAILS[] = {"numberlnull@gmail.com"};
+	private final static String SITE_ADRES = "http://127.0.0.1:8080/";
 
 	@Autowired
 	private ProductService pService;
@@ -48,9 +49,9 @@ public class UserController {
 		return PAGE_LOGIN;
 	}
 
-	@RequestMapping(value = { "/home", "/logout", "/activate" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/home", "/logout" }, method = RequestMethod.POST)
 	public String logout() {
-		return BACK;
+		return REFRESH;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -61,44 +62,40 @@ public class UserController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute User user, @RequestParam String username) {
-		String ref_link = "";
-		for (int i = 0; i < 15; i++) {
+		String ref_link = user.getActivateLink();
+/*		for (int i = 0; i < 15; i++) {
 			ref_link += (int) (Math.random() * 10);
-		}
+		}*/
 		try {
 			user.setUsername(username);
-			user.setActivateLink(ref_link);
 			user.setRole(Role.ROLE_UNACTIVATED_USER);
 			uService.save(user);
-			String message = "Привіт!\nДякуємо за реєстрацію. Щоб активувати ваш аккаунт перейдіть http://lovelystickersua.com/activation/"
+			String message = "Привіт!\nДякуємо за реєстрацію. Щоб активувати ваш аккаунт перейдіть "+ SITE_ADRES +"activation/"
 					+ ref_link + "/" + user.getName();
-			mailSender.sendMessage("Регистрация на сайте lovelystickersua.com", user.getEmail(), message);
-			return BACK;
+			mailSender.sendMessage("Реєстрація на сайті lovelystickersua.com", user.getEmail(), message);
+			return REFRESH;
 		}catch (Exception e){
-			return BACK;
+			return REFRESH;
 		}
 	}
 
 	@RequestMapping(value = "/activation/{activationLink}/{username}")
 	public String activateUser(@PathVariable String activationLink, @PathVariable String username) {
 		User user = uService.findByUsername(username);
-		System.out.println(user);
-		System.out.println("link"+activationLink);
-		System.out.println("user"+user.getActivateLink());
 		if (activationLink.equalsIgnoreCase(user.getActivateLink())) {
 			uService.activateUser(Long.parseLong(user.getUsername()));
 		}
-		return BACK;
+		return REFRESH;
 	}
 
 	@RequestMapping(value = "/resendActivateLink", method=RequestMethod.GET)
 	public String resendActivationLink(Principal principal) {
 		User user = uService.findOne(Long.parseLong(principal.getName()));
 		String ref_link = user.getActivateLink();
-		String message = "Привіт! \nВи запросили повторну відправку листа підтвердженння http://127.0.0.1:8080/activation/"
+		String message = "Привіт! \nВи запросили повторну відправку листа підтвердженння "+ SITE_ADRES +"activation/"
 				+ ref_link + "/" + user.getName();
 		mailSender.sendMessage("Повторне підтвердження", user.getEmail(), message);
-		return BACK;
+		return REFRESH;
 	}
 	
 
@@ -113,7 +110,7 @@ public class UserController {
 		if (image != null) {
 			uService.saveImage(principal, image);
 		}
-		return "redirect:/profile";
+		return REFRESH +PAGE_PROFILE;
 	}
 
 	@RequestMapping(value = "/createPurchaseOrder", method = RequestMethod.POST)
@@ -127,16 +124,13 @@ public class UserController {
 			mailSender.sendMessage("Ваше замовлення", user.getEmail(), ("Ви замовили: " + purchaseOrder.getProducts() + "\n\nДата: " + purchaseOrder.getOffer_date()).replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
 			for(String email : EMAILS) {
 				mailSender.sendMessage("Нове замовлення",  email,
-						("Новый заказ:\nНазва замовлення" + purchaseOrder.getOffer_name() + "\nДата замовлення: " + purchaseOrder.getOffer_date()
+						("Нове замовлення:\nНазва замовлення: " + purchaseOrder.getOffer_name() + "\nДата замовлення: " + purchaseOrder.getOffer_date()
 								+ "\nІнформація про замовлення: " + purchaseOrder.getProducts()
 								+ "\n\n\nСуммарная ціна: " + purchaseOrder.getTotalPrice() + "$").replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
 			}
-			for (Product product : list) {
-				product.getUsers().remove(user);
-				pService.save(product);
-			}
+			user.setProducts(null);
 		}
-		return "redirect:/"+PAGE_PROFILE;
+		return REFRESH +PAGE_PROFILE;
 	}
 
 }

@@ -40,7 +40,7 @@
                 <br>
             </td>
             <td>
-                <sec:authorize access="isAuthenticated()">
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <form>
                         <button formaction="delete/${product.ID}">Видалити</button>
                     </form>
@@ -113,8 +113,8 @@
     <%--$("#products").append(html)--%>
     <%--});--%>
     <%--</script>--%>
-    <hr>
 </sec:authorize>
+    <hr>
 <form>
     <button formaction="back/">Назад</button>
 </form>

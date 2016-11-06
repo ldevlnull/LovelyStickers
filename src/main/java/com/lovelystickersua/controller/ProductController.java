@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductController {
 
 	private final static String PAGE_PRODUCT = "product";
-	private final static String BACK = "redirect:/home";
-	private final static String STAY = "redirect:/product";
+	private final static String PAGE_HOME = "home";
+	private final static String REFRESH = "redirect:/";
 
 	@Autowired
 	private ProductService pService;
@@ -34,7 +34,7 @@ public class ProductController {
 	public String saveCommodity(@ModelAttribute Product product, @RequestParam MultipartFile image) {
 		product.setProductIconPath(pService.saveIcon(image));
 		pService.save(product);
-		return STAY;
+		return REFRESH+PAGE_PRODUCT;
 	}
 //	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
 //	public @ResponseBody String[] saveCommodity(@RequestBody Product product) {
@@ -48,12 +48,12 @@ public class ProductController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable long id) {
 		pService.delete(id);
-		return STAY;
+		return REFRESH+PAGE_PRODUCT;
 	}
 
 	@RequestMapping(value = "/back", method = RequestMethod.GET)
 	public String delete() {
-		return BACK;
+		return REFRESH+PAGE_HOME;
 	}
 
 }
