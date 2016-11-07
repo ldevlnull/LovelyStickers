@@ -130,7 +130,20 @@ public class UserController {
 			List<Product> list = user.getProducts();
 			PurchaseOrder purchaseOrder = new PurchaseOrder(user, list);
 			poService.save(purchaseOrder);
-			mailSender.sendMessage("Ваше замовлення", user.getEmail(), ("Ви замовили: " + purchaseOrder.getProducts() + "\n\nДата: " + purchaseOrder.getOffer_date()).replace((char) (91), (char) (0)).replace((char) (93), (char) (0)));
+			/* CONSTRUCT MESSAGE OF PURCHASE TO USER */
+			StringBuilder message = new StringBuilder("");
+			message.append("Ви замовили: ");
+			message.append(purchaseOrder.getProducts());
+			message.append("\n\nДата: ");
+			message.append(purchaseOrder.getOffer_date());
+			for(int i = 0; i < message.length(); i++){
+				if(message.charAt(i) == (char)(91) || message.charAt(i) == (char)(93)){
+					message.deleteCharAt(i);
+				}
+			}
+			System.out.println(message.toString());
+			/* END MESSAGE */
+			mailSender.sendMessage("Ваше замовлення", user.getEmail(), message.toString());
 			for(String email : EMAILS) {
 				mailSender.sendMessage("Нове замовлення",  email,
 						("Нове замовлення:\t\nЗамовник:"+user.getName()+"\nНазва замовлення: " + purchaseOrder.getOffer_name().replace(" ", "") + "\nДата замовлення: " + purchaseOrder.getOffer_date()
