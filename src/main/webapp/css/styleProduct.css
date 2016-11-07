@@ -12,6 +12,9 @@ p{
     size: 36px;
     text-shadow: #3a57af;
 }
+#productsNum{
+    width: 34px;
+}
 
 
 .form {

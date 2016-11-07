@@ -9,30 +9,32 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Магазин</title>
-    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styleProduct.css">
 
 </head>
 <body <sec:authorize access="!isAuthenticated() || hasRole('ROLE_UNACTIVATED_USER')"> onload="alert('Ви маєте зареєструватись, щоб замовити товар.')" </sec:authorize >>
 <hr>
+    <!-- /////////// SHOWING ALL PRODUCTS, WHICH ARE AVAIBLED IN STORE \\\\\\\\\\\\  -->
+<%--<c:forEach var="product" items="${products}">
 <table>
-<c:forEach var="product" items="${products}">
-        <tr>
+<tr>
             <td rowspan="2">
                 <img src="${product.productIconPath}"/>
             </td>
+                <form action="buy/${product.ID}?${_csrf.parameterName}=${_csrf.token}" method="POST">
             <td>
+
                 <p>${product.name}</p>
+                <sec:authorize access="isAuthenticated()">
             </td>
             <td>
-                <sec:authorize access="isAuthenticated()">
-                <form>
                     <sec:authorize access="!hasRole('ROLE_ADMIN')">
-                        <button formaction="buy/${product.ID}">Додати товар до кошика</button>
+                        <button>Додати товар до кошика</button>
                     </sec:authorize>
-                </form>
                 </sec:authorize>
             </td>
+                </form>
         </tr>
         <tr>
             <td>
@@ -48,11 +50,13 @@
             </td>
         </tr>
 </c:forEach>
-</table>
+</table>--%>
+    <!-- ////////// END SHOWING PRODUCTS \\\\\\\\\\\\\-->
 <hr>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
     <hr>
-    <form:form modelAttribute="productMODEL" action="./newProduct?${_csrf.parameterName}=${_csrf.token}"
+    <!-- //////////// ADD NEW PRODUCT IN DATABASE \\\\\\\\\ -->
+<%--    <form:form modelAttribute="productMODEL" action="./newProduct?${_csrf.parameterName}=${_csrf.token}"
                method="post" enctype="multipart/form-data">
         <table>
             <tr>
@@ -72,53 +76,47 @@
                 </td>
             </tr>
         </table>
-    </form:form>
-    <%--<div id="products">--%>
-    <%----%>
-    <%--</div>--%>
-    <%--<table>--%>
-    <%--<tr>--%>
-    <%--<td><label for="name">Name:</label></td>--%>
-    <%--<td><input id="name" name="name" /></td>--%>
-    <%--</tr>--%>
-    <%--<tr>--%>
-    <%--<td><label for="price">Price:</label></td>--%>
-    <%--<td><input id="price" name="price" /></td>--%>
-    <%--</tr>--%>
-    <%--<tr>--%>
-    <%--<td colspan="2">--%>
-    <%--<button id="saveButton">Save product</button>--%>
-    <%--</td>--%>
-    <%--</tr>--%>
-    <%--</table>--%>
-    <%--<script>--%>
-    <%--$("#saveButton").click(function(){--%>
-    <%--var product = {--%>
-    <%--name : $("#name").val,--%>
-    <%--price : $("#price").val--%>
-    <%--}--%>
-    <%--$.ajax({--%>
-    <%--url : "/newProduct?"+$("input[name=csrf_name]").val()+"="+$("input[name=csrf_value]").val,--%>
-    <%--contentType : "application/json",--%>
-    <%--type : "POST",--%>
-    <%--data : JSON.stringify(product),--%>
-    <%--success : function(result) {--%>
-    <%--var html = "";--%>
-    <%--$.each(result, function(i, country) {--%>
-    <%--html+=product+"<hr>"--%>
-    <%--})--%>
-    <%--}--%>
-    <%--})--%>
-    <%----%>
-    <%--$("#products").append(html)--%>
-    <%--});--%>
-    <%--</script>--%>
+    </form:form>--%>
+    <!-- ///////////////// END ADD NEW PRODUCT \\\\\\\\\\\\\\ -->
+    <div id="productJS">
+
+    </div>
+    <div id="formJS" >
+        <input placeholder="Name" id="product_name" type="text" required />
+        <input placeholder="Price" id="product_price" type="text" required />
+        <button id="product_new" onclick='
+            var product = {name: $("#product_name").val(), price: $("product_price").val()};
+        $.ajax({
+        url: "./newProduct?<%--${_csrf.parameterName}=${_csrf.token}",--%>
+        type: "POST",
+        data: JSON.stringify(product)
+        })' > Add</button>
+    </div>
+    <%--<script>
+    $("#saveButton").click(function(){
+    var product = {
+    name : $("#name").val,
+    price : $("#price").val
+    }
+    $.ajax({
+    url : "/newProduct?"+$("input[name=csrf_name]").val()+"="+$("input[name=csrf_value]").val,
+    contentType : "application/json",
+    type : "POST",
+    data : JSON.stringify(product),
+    success : function(result) {
+    var html = "";
+    $.each(result, function(i, country) {
+    html+=product+"<hr>"
+    })
+    }
+    })
+    $("#products").append(html)
+    });
+    </script>--%>
 </sec:authorize>
     <hr>
 <form>
     <button formaction="back/">Назад</button>
 </form>
-<input type="hidden" name="csrf_name" value="${_csrf.parameterName}"/>
-<input type="hidden" name="csrf_value" value="${_csrf.token}"/>
 </body>
 </html>

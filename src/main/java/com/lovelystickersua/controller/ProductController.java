@@ -52,7 +52,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/back", method = RequestMethod.GET)
-	public String delete() {
+	public String back() {
 		return REFRESH+PAGE_HOME;
 	}
 

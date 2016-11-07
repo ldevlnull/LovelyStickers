@@ -23,8 +23,6 @@ import com.lovelystickersua.service.ProductService;
 import com.lovelystickersua.service.PurchaseOrderService;
 import com.lovelystickersua.service.UserService;
 
-import javax.annotation.Generated;
-
 @Controller
 public class UserController {
 
@@ -33,7 +31,7 @@ public class UserController {
 	private final static String REFRESH = "redirect:/";
 	private final static String PAGE_PROFILE = "profile";
 	private final static String EMAILS[] = {"numberlnull@gmail.com"};
-	private final static String SITE_ADRES = "http://127.0.0.1:8080/";
+	private final static String SITE_ADRESS = "http://127.0.0.1:8080/";
 
 	@Autowired
 	private ProductService pService;
@@ -75,11 +73,12 @@ public class UserController {
 		}
 		/* end generate confirm link */
 		try {
+            user.setPathImage("resources/user_icon/anonymous.jpg");
 			user.setActivateLink(ref_link.toString());
 			user.setUsername(username);
 			user.setRole(Role.ROLE_UNACTIVATED_USER);
 			uService.save(user);
-			String message = "Привіт!\nДякуємо за реєстрацію. Щоб активувати ваш аккаунт перейдіть "+ SITE_ADRES +"activation/"
+			String message = "Привіт!\nДякуємо за реєстрацію. Щоб активувати ваш аккаунт перейдіть "+ SITE_ADRESS +"activation/"
 					+ ref_link + "/" + user.getName();
 			mailSender.sendMessage("Реєстрація на сайті lovelystickersua.com", user.getEmail(), message);
 			return REFRESH;
@@ -94,14 +93,14 @@ public class UserController {
 		if (activationLink.equals(user.getActivateLink())) {
 			uService.activateUser(Long.parseLong(user.getUsername()));
 		}
-		return PAGE_LOGIN;
+		return REFRESH+PAGE_LOGIN;
 	}
 
 	@RequestMapping(value = "/resendActivateLink", method=RequestMethod.GET)
 	public String resendActivationLink(Principal principal) {
 		User user = uService.findOne(Long.parseLong(principal.getName()));
 		String ref_link = user.getActivateLink();
-		String message = "Привіт! \nВи запросили повторну відправку листа підтвердженння "+ SITE_ADRES +"activation/"
+		String message = "Привіт! \nВи запросили повторну відправку листа підтвердженння "+ SITE_ADRESS +"activation/"
 				+ ref_link + "/" + user.getName();
 		mailSender.sendMessage("Повторне підтвердження", user.getEmail(), message);
 		return REFRESH;

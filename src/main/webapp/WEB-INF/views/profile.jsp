@@ -15,7 +15,7 @@
 <table>
     <tr>
         <td rowspan="2">
-            <img width="128px" height="128px" src="${user.pathImage}" alt="Картинка не може бути відображенною :("/>
+            <img width="128px" height="128px" src="${user.pathImage}" />
         </td>
         <td>
             <h3 id="username">${user.getName()}</h3>

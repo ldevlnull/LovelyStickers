@@ -14,6 +14,7 @@ import com.lovelystickersua.entity.Product;
 import com.lovelystickersua.entity.User;
 import com.lovelystickersua.service.ProductService;
 import com.lovelystickersua.service.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -28,18 +29,20 @@ public class HomeController {
 	
 	@Autowired
 	private ProductService pService;
-	
+
 	@RequestMapping(value={"/","/home"}, method=RequestMethod.GET)
 	public String home(Model model, Principal principal){
 		return PAGE;
 	}
 
-	@RequestMapping(value="/buy/{ID}", method=RequestMethod.GET)
-	public String home(Principal principal, @PathVariable String ID){	
+	@RequestMapping(value="/buy/{ID}", method=RequestMethod.POST)
+	public String home(Principal principal, @PathVariable String ID, @RequestParam int productsNum){
 		User user = uService.userFetch(Long.parseLong(principal.getName()));	
 		Product product = pService.productFetch(Long.parseLong(ID));
-		product.getUsers().add(user);
-		pService.save(product);
+		for(int i = 0; i < productsNum; i++) {
+			product.getUsers().add(user);
+			pService.save(product);
+		}
 		return REFRESH+PRODUCT;
 	}
 	@RequestMapping(value="/deleteFromCart/{ID}", method = RequestMethod.GET)
@@ -48,6 +51,13 @@ public class HomeController {
 		User user = uService.userFetch(Long.parseLong(principal.getName()));
 		product.getUsers().remove(user);
 		pService.save(product);
+		return REFRESH+PROFILE;
+	}
+	@RequestMapping(value = "/clearCart")
+	public String clearCart(Principal principal){
+		User user = uService.userFetch(Long.parseLong(principal.getName()));
+		user.setProducts(null);
+		uService.save(user);
 		return REFRESH+PROFILE;
 	}
 }
