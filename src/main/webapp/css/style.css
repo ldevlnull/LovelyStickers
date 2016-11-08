@@ -5,6 +5,10 @@ p, #resendActivateLink{
 	text-shadow: #b3b3b3;
 	
 }
+.user_icons{
+	width: 64px;
+	height: 64px;
+}
 #username{
     size: 36px;
 }

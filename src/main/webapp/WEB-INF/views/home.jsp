@@ -48,6 +48,11 @@
 						<button>Вийти</button>
 					</sf:form>
 				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<form>
+						<button formaction="users">Всі користувачі</button>
+					</form>
+				</sec:authorize>
 		</div>
 	</div>
 </body>

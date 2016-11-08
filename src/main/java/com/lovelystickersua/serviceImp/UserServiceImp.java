@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lovelystickersua.DTO.DTO_UtilMapper;
+import com.lovelystickersua.DTO.UserDTO;
 import com.lovelystickersua.entity.Role;
 import com.lovelystickersua.entity.User;
 import com.lovelystickersua.repository.UserRepository;
@@ -92,6 +94,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
 	@Override
 	public User findByUsername(String username) {
 		return uRepository.findByUsername(username);
+	}
+
+	@Override
+	public List<UserDTO> findAllUserDTOs() {
+		return DTO_UtilMapper.listUserToUserDTO(uRepository.findAll());
 	}
 	
 

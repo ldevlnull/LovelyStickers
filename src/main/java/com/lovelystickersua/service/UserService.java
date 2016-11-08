@@ -2,9 +2,8 @@ package com.lovelystickersua.service;
 
 import java.security.Principal;
 import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
-
+import com.lovelystickersua.DTO.UserDTO;
 import com.lovelystickersua.entity.User;
 
 public interface UserService {
@@ -17,4 +16,5 @@ public interface UserService {
     void saveImage(Principal principal, MultipartFile multipartFile);
     User findByUsername(String username);
 	void activateUser(long ID);
+	List<UserDTO> findAllUserDTOs();
 }

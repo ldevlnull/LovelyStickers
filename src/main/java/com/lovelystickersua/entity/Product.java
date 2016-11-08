@@ -17,7 +17,7 @@ public class Product {
 	private String price;
 	@ManyToOne(fetch=FetchType.LAZY)
 	private PurchaseOrder purchaseOrder;
-	private String productIconPath;
+	private String iconPath;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name = "user_product",
@@ -38,12 +38,12 @@ public class Product {
 		this.purchaseOrder = purchaseOrder;
 	}
 
-	public String getProductIconPath() {
-		return productIconPath;
+	public String getIconPath() {
+		return iconPath;
 	}
 
-	public void setProductIconPath(String productIconPath) {
-		this.productIconPath = productIconPath;
+	public void setIconPath(String productIconPath) {
+		this.iconPath = productIconPath;
 	}
 
 	public long getID() {

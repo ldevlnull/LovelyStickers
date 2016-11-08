@@ -28,6 +28,7 @@ public class UserController {
 
 	private final static String PAGE_LOGIN = "loginpage";
 	private final static String PAGE_REGISTER = "register";
+	private final static String PAGE_USERS = "users";
 	private final static String REFRESH = "redirect:/";
 	private final static String PAGE_PROFILE = "profile";
 	private final static String EMAILS[] = {"numberlnull@gmail.com"};
@@ -44,6 +45,12 @@ public class UserController {
 
 	@Autowired
 	private PurchaseOrderService poService;
+	
+	@RequestMapping(value = "/users")
+	public String users(Model model){
+		model.addAttribute("users", uService.findAllUserDTOs());
+		return PAGE_USERS;
+	}
 
 	@RequestMapping(value = {"/loginpage"}, method = RequestMethod.GET)
 	public String login() {
@@ -69,7 +76,7 @@ public class UserController {
 		char random_symbol[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 		for(int i = 0; i < 6; i++){
 			ref_link.append(secureRandom.nextInt());
-			ref_link.append(random_symbol[(int)(Math.random()*53)]);
+			ref_link.append(random_symbol[(int)(Math.random()*52)]);
 		}
 		/* end generate confirm link */
 		try {
