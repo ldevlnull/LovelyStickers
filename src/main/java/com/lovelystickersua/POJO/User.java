@@ -1,4 +1,4 @@
-package com.lovelystickersua.entity;
+package com.lovelystickersua.POJO;
 
 import java.util.*;
 import javax.persistence.*;
@@ -13,11 +13,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
-    @Column(nullable = false, unique = true)
     private String username;
-    @Column(nullable = false)
     private String password;
-    @Column(nullable = false, unique = true)
     private String email;
     private String pathImage;
     @Column(unique=true)

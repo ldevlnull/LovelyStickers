@@ -11,11 +11,11 @@
     <title>Особистий кабінет</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<body onload="check()">
 <table>
     <tr>
         <td rowspan="2">
-            <img width="128px" height="128px" src="${user.pathImage}" />
+            <img width="128px" height="128px" src="${user.pathImage}"/>
         </td>
         <td>
             <h3 id="username">${user.getName()}</h3>
@@ -36,7 +36,7 @@
     <table>
         <tr>
             <td rowspan="2">
-                <img height="64px" width="64px" src="${product.productIconPath}"/>
+                <img height="64px" width="64px" src="${product.iconPath}"/>
             </td>
             <td>
                 <p>${product.name}</p>
@@ -53,13 +53,26 @@
                 <br>
             </td>
         </tr>
-
     </table>
 </c:forEach>
-<form method="post">
-    <button onclick="alert('Лист з інформацією про замовлення був відправлений на вашу електронну адресу.')"
-            formaction="createPurchaseOrder?${_csrf.parameterName}=${_csrf.token}">Замовити
-    </button>
+<script>
+    (function check() {
+        var button = document.getElementById("buy");
+        $.ajax({
+            url: "/checkCart",
+            type: "POST",
+            success: function (result) {
+                if (result) {
+                    button.setAttribute('type', 'hidden');
+                } else {
+                    button.setAttribute('type', 'button');
+                }
+            }
+        })
+    }());
+</script>
+<form method="post" action="createPurchaseOrder?${_csrf.parameterName}=${_csrf.token}">
+    <input value="Замовити" type="button" id="buy" name="buy"/>
 </form>
 <hr>
 <form>

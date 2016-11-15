@@ -4,14 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.mail.Folder;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lovelystickersua.DTO.DTO_UtilMapper;
 import com.lovelystickersua.DTO.ProductDTO;
-import com.lovelystickersua.entity.Product;
+import com.lovelystickersua.POJO.Product;
 import com.lovelystickersua.repository.ProductRepository;
 import com.lovelystickersua.service.ProductService;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,6 +51,6 @@ public class ProductServiceImp implements ProductService {
 	public List<ProductDTO> findAllProductDTOs() {
 		return DTO_UtilMapper.listProductToProductDTO(repository.findAll());
 	}
-	
-	
+
+
 }

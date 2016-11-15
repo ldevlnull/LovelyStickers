@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lovelystickersua.DTO.DTO_UtilMapper;
 import com.lovelystickersua.DTO.UserDTO;
-import com.lovelystickersua.entity.Role;
-import com.lovelystickersua.entity.User;
+import com.lovelystickersua.POJO.Role;
+import com.lovelystickersua.POJO.User;
 import com.lovelystickersua.repository.UserRepository;
 import com.lovelystickersua.service.UserService;
 
@@ -26,7 +26,7 @@ import com.lovelystickersua.service.UserService;
 public class UserServiceImp implements UserService, UserDetailsService {
 
 	@Autowired
-	UserRepository uRepository;
+	private UserRepository uRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -100,6 +100,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
 	public List<UserDTO> findAllUserDTOs() {
 		return DTO_UtilMapper.listUserToUserDTO(uRepository.findAll());
 	}
-	
 
+	@Override
+	public User findByEmail(String email) {
+		return uRepository.findByEmail(email);
+	}
 }

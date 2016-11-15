@@ -3,7 +3,7 @@ package com.lovelystickersua.service;
 import java.util.List;
 
 import com.lovelystickersua.DTO.ProductDTO;
-import com.lovelystickersua.entity.Product;
+import com.lovelystickersua.POJO.Product;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ProductService{

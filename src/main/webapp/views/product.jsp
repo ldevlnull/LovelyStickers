@@ -14,16 +14,15 @@
 </head>
 <body <sec:authorize access="!isAuthenticated() || hasRole('ROLE_UNACTIVATED_USER')"> onload="alert('Ви маєте зареєструватись, щоб замовити товар.')" </sec:authorize >>
 <hr>
-    <!-- /////////// SHOWING ALL PRODUCTS, WHICH ARE AVAIBLED IN STORE \\\\\\\\\\\\  -->
+    <!-- /////////// SHOWING ALL PRODUCTS, WHICH ARE AVAIBLE IN STORE \\\\\\\\\\\\  -->
 <c:forEach var="product" items="${products}">
 <table>
 <tr>
             <td rowspan="2">
                 <img src="${product.iconPath}"/>
             </td>
-                <form action="buy/${product.id}?${_csrf.parameterName}=${_csrf.token}" method="POST">
+                <form action="buy/${product.id}?${_csrf.parameterName}=${_csrf.token}" method="post">
             <td>
-
                 <p>${product.name}</p>
                 <sec:authorize access="isAuthenticated()">
             </td>
@@ -68,6 +67,15 @@
                 <td><form:input id="price" path="price"/></td>
             </tr>
             <tr>
+                <td><label for="category">Категорія:</label></td>
+                <td><select name="categorys" id="category">
+                    <option disabled>Категорія:</option>
+                    <c:forEach var="category" items="${categoryies}">
+                        <option value="${category.id}">${category.name}</option>
+                    </c:forEach>
+                </select></td>
+            </tr>
+            <tr>
                 <td><input type="file" name="image"></td>
             </tr>
             <tr>
@@ -78,6 +86,11 @@
         </table>
     </form:form>
     <!-- ///////////////// END ADD NEW PRODUCT \\\\\\\\\\\\\\ -->
+    <!-- ///////////////// START ADD NEW CATEGORY \\\\\\\\\\\\\\\-->
+    <form action="/newCategory">
+
+    </form>
+    <!-- ///////////////// END ADD NEW CATEGORY \\\\\\\\\\\\\\\-->
     <!-- <div id="productJS">
 
     </div>
@@ -104,8 +117,8 @@
     </script> -->
 </sec:authorize>
     <hr>
-<form>
-    <button formaction="back/">Назад</button>
+<form action="back">
+    <button>Назад</button>
 </form>
 </body>
 </html>

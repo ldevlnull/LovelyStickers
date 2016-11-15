@@ -2,7 +2,7 @@ package com.lovelystickersua.service;
 
 import java.util.List;
 
-import com.lovelystickersua.entity.PurchaseOrder;
+import com.lovelystickersua.POJO.PurchaseOrder;
 
 public interface PurchaseOrderService {
 

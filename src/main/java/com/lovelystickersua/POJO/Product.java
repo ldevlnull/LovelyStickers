@@ -1,4 +1,4 @@
-package com.lovelystickersua.entity;
+package com.lovelystickersua.POJO;
 
 
 import javax.persistence.*;
@@ -15,9 +15,30 @@ public class Product {
 	private String name;
 	@Column(nullable=false)
 	private String price;
+	private String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	private PurchaseOrder purchaseOrder;
 	private String iconPath;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Category category;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name = "user_product",

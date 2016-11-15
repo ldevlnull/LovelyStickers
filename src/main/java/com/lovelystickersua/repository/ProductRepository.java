@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.lovelystickersua.entity.Product;
+import com.lovelystickersua.POJO.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	

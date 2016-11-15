@@ -31,23 +31,10 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<filter>
-		<filter-name>FormEncodingSetterFilter</filter-name>
-		<filter-class>com.lovelystickersua.entity.CodingUTF8</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>FormEncodingSetterFilter</filter-name>
-		<url-pattern>/i18n-tutorial/*</url-pattern>
-	</filter-mapping>
 	<!-- ////////////////////////////////////////////////////// -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -57,12 +44,10 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/security.xml</param-value>
 	</context-param>
-
 	<!-- Listener необхідний для того, щоб була можливість підлючити context-param 
 		для Spring Security -->
 	<listener>

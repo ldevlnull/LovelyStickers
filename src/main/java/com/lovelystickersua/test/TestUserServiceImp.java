@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.lovelystickersua.entity.User;
+import com.lovelystickersua.POJO.User;
 import com.lovelystickersua.serviceImp.UserServiceImp;
 
 public class TestUserServiceImp {

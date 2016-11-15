@@ -1,4 +1,4 @@
-package com.lovelystickersua.entity;
+package com.lovelystickersua.POJO;
 
 public enum Role {
 

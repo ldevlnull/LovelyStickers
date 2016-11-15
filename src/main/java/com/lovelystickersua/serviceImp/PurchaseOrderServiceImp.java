@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lovelystickersua.entity.PurchaseOrder;
+import com.lovelystickersua.POJO.PurchaseOrder;
 import com.lovelystickersua.repository.PurchaseOrderRepository;
 import com.lovelystickersua.service.PurchaseOrderService;
 @Service
