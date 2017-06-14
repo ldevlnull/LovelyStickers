@@ -15,7 +15,9 @@ public class Rozetka {
         Document document = Jsoup.connect("https://ru.aliexpress.com/category/202005903/office-electronics.html?spm=2114.21011208.2.1.c58zUm").get();
         String string = document.select("span.value").text();
         System.out.println(string);
-        String[] array = string.split(".");
-        System.out.println(Arrays.toString(array));
+        String[] array = string.split("руб.");
+        for (String s: array) {
+            System.out.println(s);
+        }
     }
 }

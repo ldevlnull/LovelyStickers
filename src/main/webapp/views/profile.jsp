@@ -11,8 +11,8 @@
     <title>Особистий кабінет</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body onload="check()">
-<table>
+<body>
+<table align="center">
     <tr>
         <td rowspan="2">
             <img width="128px" height="128px" src="${user.pathImage}"/>
@@ -30,9 +30,12 @@
             </form:form>
         </td>
     </tr>
+    <tr>
+        <td><form action="/logout?${_csrf.parameterName}=${_csrf.token}" method="post"><button>Вийти</button></form></td>
+    </tr>
 </table>
 <hr>
-<c:forEach var="product" items="${user.products}">
+<%--<c:forEach var="product" items="${user.products}">
     <table>
         <tr>
             <td rowspan="2">
@@ -54,8 +57,8 @@
             </td>
         </tr>
     </table>
-</c:forEach>
-<script>
+</c:forEach>--%>
+<%--<script>
     (function check() {
         var button = document.getElementById("buy");
         $.ajax({
@@ -70,11 +73,10 @@
             }
         })
     }());
-</script>
-<form method="post" action="createPurchaseOrder?${_csrf.parameterName}=${_csrf.token}">
+</script>--%>
+<%--<form method="post" action="createPurchaseOrder?${_csrf.parameterName}=${_csrf.token}">
     <input value="Замовити" type="button" id="buy" name="buy"/>
-</form>
-<hr>
+</form>--%>
 <form>
     <button formaction="back/">Назад</button>
 </form>

@@ -6,7 +6,8 @@ package com.lovelystickersua.controller;
 public enum PAGE {
     REFRESH("redirect:/"), HOME("home"), PROFILE("profile"),
     PRODUCT("product"), LOGIN("loginpage"), REGISTER("register"),
-    USERS("users"), LOADING("loading"), STORE("store");
+    USERS("users"), LOADING("loading"), STORE("store"), ADMIN("admin"),
+    ADMIN_USERS("adminUsers"), ADMIN_PRODUCTS("adminProducts");
     private String value;
 
     PAGE(String value) {

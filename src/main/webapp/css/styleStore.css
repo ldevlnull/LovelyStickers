@@ -150,6 +150,10 @@ footer p {
 
 /* Shop & Product Items
  * ============================ */
+.loginproces{
+  position: relative;
+  align-self: center;
+}
 .product {
   position: relative;
   z-index: 1;

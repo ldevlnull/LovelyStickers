@@ -1,42 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%--
+  Created by IntelliJ IDEA.
+  User: devnull
+  Date: 16.11.16
+  Time: 23:01
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet'
-          type='text/css'>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-    <link href="css/styleRegister.css" rel="stylesheet" type="text/css">
-    <link href="/css/styleFooter_Header.css">
-    <script src="/js/functionalFooter_Header.js"></script>
-    <title>Сторінка реєстрації</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/styleRegister.css">
 </head>
 <body>
-<div class="testbox">
-    <h1>Реєстрація</h1>
-    <form:form modelAttribute="user" action="register" method="post">
-        <hr>
-        <label id="icon" for="email"><i class="icon-envelope "></i></label>
-        <form:input type="text" path="email" id="email" placeholder="Електронна адреса"/>
-        <form:errors cssStyle="background-color: red;color: #cccccc;" path="email"/>
-        <label id="icon" for="username"><i class="icon-user"></i></label>
-        <input required min="4" max="32" name="username" type="text" id="username" placeholder="Логін"/>
-        <form:errors cssStyle="background-color: red;color: #cccccc;" path="username"/>
-        <label id="icon" for="password"><i class="icon-shield"></i></label>
-        <form:input type="password" path="password" id="password" placeholder="Пароль"/>
-        <form:errors cssStyle="background-color: red;color: #cccccc;" path="password" />
-        <table>
-            <tr>
-                <td>
-                    <button onclick="">Register</button>
-                </td>
-            </tr>
-            <tr>
-                <td height="50px"><a id="regToLog" href="loginpage">Я вже зареєстрований!</a></td>
-            </tr>
-        </table>
-    </form:form>
-</div>
+<form>
+    <ul class="items"></ul>
+    <fieldset class="username enable">
+        <div class="icon left"><i class="user"></i></div>
+        <input min="4" max="32" type="text" id="username" name="username" placeholder="Логін"/>
+        <div class="icon right button"><i class="arrow"></i></div>
+    </fieldset>
+    <fieldset class="email">
+        <div class="icon left"><i class="letter"></i></div>
+        <input min="4" max="32" type="email" id="email"name="email" placeholder="Електронна адреса"/>
+        <div class="icon right button"><i class="arrow"></i></div>
+    </fieldset>
+    <fieldset class="password">
+        <div class="icon left"><i class="lock"></i></div>
+        <input min="4" max="32" type="password" id="password" name="password" placeholder="Password"/>
+        <div class="icon right button"><i class="arrow"></i></div>
+    </fieldset>
+    <fieldset class="thanks">
+        <div class="icon left"><i class="heart"></i></div>
+        <p>Лист про реєстрацію був надісланний</p>
+        <div class="icon right"><i class="heart"></i></div>
+    </fieldset>
+</form>
+<input readonly type="hidden" name="csrf_name" value="${_csrf.parameterName}"/>
+<input readonly type="hidden" name="csrf_value" value="${_csrf.token}"/>
+<script src="/js/register.js"></script>
+<script src="/js/jquery-3.1.1.min.js"></script>
 </body>
 </html>

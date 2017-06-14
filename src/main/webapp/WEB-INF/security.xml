@@ -6,10 +6,11 @@
 
     <import resource="appContext.xml"/>
     <security:http>
-        <security:form-login login-page="/loginpage"
-                             login-processing-url="/loginprocesing"
+        <security:form-login login-page="/store"
+                             login-processing-url="/login"
                              authentication-success-forward-url="/home"/>
         <security:intercept-url pattern="/" access="permitAll()" />
+        <security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
         <security:logout logout-url="/logout"
                          logout-success-url="/" delete-cookies="false" />
     </security:http>
